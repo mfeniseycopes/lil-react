@@ -1,9 +1,9 @@
-import { Component, DOMConnector } from './Component.js'
+import Component from './lib/Component'
+import { renderToDOM } from './lib/Utility'
 
-console.log('running')
 window.Component = Component
-window.DOMConnector = DOMConnector
-window.DC = new DOMConnector(
+
+renderToDOM(
   Component, { 
     html: '<div>Parent</div>',
     children: [
