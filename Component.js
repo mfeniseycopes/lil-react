@@ -3,9 +3,10 @@ import $ from 'jquery'
 class DOMConnector {
 
   constructor(Component, obj, selector) {
+    debugger
     this.component = new Component(obj)
     this.component.build()
-    $(selector).add(this.component.$node) 
+    $(selector).append(this.component.$node) 
   }
 
 }
@@ -28,7 +29,7 @@ class Component {
 
   buildReal() {
     this.$node = $(this.html)
-    this.children.forEach(child => this.$node.add(child.buildReal())) 
+    this.children.forEach(child => this.$node.append(child.buildReal())) 
     return this.$node
   }
   
@@ -36,12 +37,14 @@ class Component {
     this.html = this.obj.html
     this.props = this.obj.props
     this.childKeys = {}
-    
-    this.children = this.obj.children.map(child => {
-      const newChild = new Component(child)
-      this.childKeys[child.key] = newChild 
-      return newChild.buildVirtual()
-    })
+   
+    if (this.obj.children) {
+      this.children = this.obj.children.map(child => {
+        const newChild = new Component(child)
+        this.childKeys[child.key] = newChild 
+        return newChild.buildVirtual()
+      })
+    }
 
     return this
   }
@@ -100,5 +103,6 @@ class Component {
       }
     }
   }
-
 }
+
+export { Component, DOMConnector } 
