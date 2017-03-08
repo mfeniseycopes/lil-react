@@ -3,14 +3,31 @@ import { renderToDOM } from './lib/Utility'
 
 window.Component = Component
 
+class NestedChildComponent extends Component {
+  
+  render() {
+    return {
+      tag: 'div',
+      inner: this.props.parent,
+      children: [
+        { tag: 'div', inner: this.props.child1 },
+        { tag: 'div', inner: this.props.child2 },
+      ]
+    }
+  }
+
+}
+
 class ChildComponent extends Component {
   
   render() {
     return {
-      html: `<div>${this.props.parent}</div>`,
+      tag: 'div',
+      inner: this.props.parent,
       children: [
-        { html: `<div>${this.props.child1}</div>` },
-        { html: `<div>${this.props.child2}</div>` }
+        { tag: 'div', inner: this.props.child1 },
+        { tag: 'div', inner: this.props.child2 },
+        { tag: NestedChildComponent, props: this.props },
       ]
     }
   }
