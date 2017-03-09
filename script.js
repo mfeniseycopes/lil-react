@@ -8,7 +8,7 @@ class TestComponent extends Component {
   render() {
     return {
       tag: 'div',
-      inner: '0',
+      inner: this.props.name,
       children: [
         { tag: 'div', inner: '0-0',
           children: [{ tag: 'div', inner: '0-0-0' }] },
@@ -29,7 +29,7 @@ class ChildComponent extends Component {
         children: [
           { tag: 'div', inner: this.props.child1 },
           { tag: 'div', inner: this.props.child2 },
-          { tag: TestComponent }
+          { tag: TestComponent, props: { name: 'Fred' }}
         ]
       }
     }
@@ -56,4 +56,4 @@ window.testComp = new ChildComponent(firstProps)
 
 renderToDOM(testComp, '#root')
 
-window.testComp.updating(Object.assign({}, firstProps, { parent: 'Mama', child2: 'Nina2' }))
+window.testComp.updating(Object.assign({}, firstProps, { parent: 'Mama', child2: 'Nino2' }))
