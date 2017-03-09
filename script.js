@@ -4,7 +4,7 @@ import { renderToDOM } from './lib/Utility'
 window.Component = Component
 
 class NestedChildComponent extends Component {
-  
+
   render() {
     return {
       tag: 'div',
@@ -19,7 +19,7 @@ class NestedChildComponent extends Component {
 }
 
 class ChildComponent extends Component {
-  
+
   render() {
     return {
       tag: 'div',
@@ -37,12 +37,11 @@ const firstProps = {
   parent: 'Papa',
   child1: 'Nino1',
   child2: 'Nino2',
-} 
+}
 
-window.testComp = new ChildComponent(firstProps) 
+window.testComp = new ChildComponent(firstProps)
 
 renderToDOM(testComp, '#root')
 
-window.testComp.receiveProps(Object.assign({}, firstProps, { child2: 'Nina2' }))
-window.testComp.diff()
-
+// window.testComp.updating(Object.assign({}, firstProps, { child2: 'Nina2' }))
+// window.testComp.diff()
