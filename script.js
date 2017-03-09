@@ -3,15 +3,16 @@ import { renderToDOM } from './lib/Utility'
 
 window.Component = Component
 
-class NestedChildComponent extends Component {
+class TestComponent extends Component {
 
   render() {
     return {
       tag: 'div',
-      inner: this.props.parent,
+      inner: '0',
       children: [
-        { tag: 'div', inner: this.props.child1 },
-        { tag: 'div', inner: this.props.child2 },
+        { tag: 'div', inner: '0-0',
+          children: [{ tag: 'div', inner: '0-0-0' }] },
+        { tag: 'div', inner: '0-1' },
       ]
     }
   }
@@ -21,14 +22,26 @@ class NestedChildComponent extends Component {
 class ChildComponent extends Component {
 
   render() {
-    return {
-      tag: 'div',
-      inner: this.props.parent,
-      children: [
-        { tag: 'div', inner: this.props.child1 },
-        { tag: 'div', inner: this.props.child2 },
-        { tag: NestedChildComponent, props: this.props },
-      ]
+    if (this.props.child2 === 'Nino2') {
+      return {
+        tag: 'div',
+        inner: this.props.parent,
+        children: [
+          { tag: 'div', inner: this.props.child1 },
+          { tag: 'div', inner: this.props.child2 },
+          { tag: TestComponent }
+        ]
+      }
+    }
+    else {
+      return {
+        tag: 'div',
+        inner: this.props.parent,
+        children: [
+          { tag: 'div', inner: this.props.child1 },
+          { tag: 'div', inner: this.props.child2 },
+        ]
+      }
     }
   }
 }
@@ -43,5 +56,4 @@ window.testComp = new ChildComponent(firstProps)
 
 renderToDOM(testComp, '#root')
 
-// window.testComp.updating(Object.assign({}, firstProps, { child2: 'Nina2' }))
-// window.testComp.diff()
+window.testComp.updating(Object.assign({}, firstProps, { child2: 'Nina2' }))
