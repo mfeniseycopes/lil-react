@@ -56,4 +56,4 @@ window.testComp = new ChildComponent(firstProps)
 
 renderToDOM(testComp, '#root')
 
-window.testComp.updating(Object.assign({}, firstProps, { child2: 'Nina2' }))
+window.testComp.updating(Object.assign({}, firstProps, { parent: 'Mama', child2: 'Nina2' }))
