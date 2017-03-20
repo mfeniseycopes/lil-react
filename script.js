@@ -1,59 +1,42 @@
-import Component from './lib/Component'
-import { renderToDOM } from './lib/Utility'
+import ReactDOM from './lib/ReactDOM'
+import { Component, createElement } from './lib/React'
+import $ from 'jquery'
 
-window.Component = Component
-
-class TestComponent extends Component {
-
+class Test extends Component {
   render() {
-    return {
-      tag: 'div',
-      inner: this.props.name,
-      children: [
-        { tag: 'div', inner: '0-0',
-          children: [{ tag: 'div', inner: '0-0-0' }] },
-        { tag: 'div', inner: '0-1' },
-      ]
-    }
-  }
+    const children = [
+      createElement('<p>P</p>'),
 
-}
+    ]
 
-class ChildComponent extends Component {
+    if (this.props.p = 'p') {
+      children.push(createElement('<span>SPAN</span>'))
+    }
 
-  render() {
-    if (this.props.child2 === 'Nino2') {
-      return {
-        tag: 'div',
-        inner: this.props.parent,
-        children: [
-          { tag: 'div', inner: this.props.child1 },
-          { tag: 'div', inner: this.props.child2 },
-          { tag: TestComponent, props: { name: 'Fred' }}
-        ]
-      }
-    }
-    else {
-      return {
-        tag: 'div',
-        inner: this.props.parent,
-        children: [
-          { tag: 'div', inner: this.props.child1 },
-          { tag: 'div', inner: this.props.child2 },
-        ]
-      }
-    }
+    return (
+      createElement(
+        `<div>${this.props.div}</div>`,
+        {}, ...children)
+    )
   }
 }
 
-const firstProps = {
-  parent: 'Papa',
-  child1: 'Nino1',
-  child2: 'Nino2',
-}
+window.updateComponent = ReactDOM.updateComponent
+window.$ = $
 
-window.testComp = new ChildComponent(firstProps)
+const el1 = createElement(
+    'main',
+    { span: 'SPAN', div: 'DIV' },
+    createElement('hey'),
+    createElement('div'))
 
-renderToDOM(testComp, '#root')
+const el2 = createElement(
+    'main',
+    { div: 'DIV', p: 'P' },
+    createElement('div'),
+    createElement('div'))
 
-window.testComp.updating(Object.assign({}, firstProps, { parent: 'Mama', child2: 'Nino2' }))
+window.el1 = el1
+
+ReactDOM.render(el1, $('#root'))
+ReactDOM._diff(el1, el2)
