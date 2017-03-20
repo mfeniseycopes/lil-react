@@ -10,6 +10,8 @@ class Test extends Component {
 
 window.$ = $
 
+const el0 = createElement(Test)
+
 const el1 = createElement(
     'main',
     { span: 'SPAN', div: 'DIV' },
@@ -22,7 +24,5 @@ const el2 = createElement(
     createElement('ya'),
     createElement('yo'))
 
-window.el1 = el1
-
-ReactDOM.render(createElement(Test), $('#root'))
-ReactDOM._diff(el1, el2)
+ReactDOM.render(el0, $('#root'))
+ReactDOM._diff(el0, el2)
