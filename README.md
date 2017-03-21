@@ -24,10 +24,24 @@ Step 3
 - Recursively unmount children first, then self
 
 Step 4
-- `#diff` between two element trees
+- `#_diff` between two element trees
   - compare roots
     - if different, unmount prev, mount next
     - if same
-      - update node
-      - *NB* - if there were no components, but only elements, we would not need to recurse children
-      - 
+      - compare the children
+      - try to salvage children with same key
+
+Step 4
+- Component
+  - create `Component` class to extend
+  - include lifecycle methods
+
+Step 5
+- Handle Components in `_mount`, `_unmount`, `_diff`
+  - with lifecycle methods
+
+Step 6
+- create `setState` method
+
+Step 7
+- #TODO: add event handlers
