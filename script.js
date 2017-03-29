@@ -1,54 +1,48 @@
-import ReactDOM from './lib/ReactDOM'
-import { Component, createElement } from './lib/React'
 import $ from 'jquery'
+import { Component } from './lib/React'
+import { render } from './lib/ReactDOM'
 
-class Test extends Component {
-  constructor(props) {
-    super(props)
-    debugger
-    this.state = { a: 'A', b: 'B' }
-  }
-
+class A extends Component {
   render() {
     return {
       type: 'div',
       props: {
-        a: this.state.a,
-        b: this.state.b,
-        children: [{
-          type: 'p',
-          props: {
-            children: [
-              this.state.a,
-              this.state.b
-            ]
-          }
-        }]
+        children: [ 
+          { type: 'text', body: this.state.a, props: { children: [] } },
+          { 
+            type: 'button', 
+            props: { 
+              children: [
+                {
+                  type: 'text',
+                  body: 'click me',
+                  props: { children: [] }
+                } 
+              ] 
+            } 
+          } 
+        ]
       }
     }
-      
   }
 }
 
-window.$ = $
-
-const elA = createElement(Test, { update: false })
-const elB = createElement(Test, { update: true })
-
-const el1 = createElement(
-    'div',
-    { span: 'SPAN', div: 'DIV' },
-    createElement('hey'),
-    createElement('hay'))
-
-const el2 = createElement(
-    'main',
-    { div: 'DIV', p: 'P' },
-    createElement('ya'),
-    createElement('yo'))
-
-ReactDOM.render(elA, $('#root'))
-// ReactDOM._diff(elA, elB)
-elA.component.setState({b: 'b'})
+render({
+  type: 'div',
+  props: {
+    children: [ {
+      type: A,
+      props: {
+        children: []
+      }
+    }, {
+      type: 'text',
+      body: 'hey',
+      props: {}
+    }] 
+  } 
+}, $('#root'))
 
 
+let comp = register.registry[5].instance
+comp.setState({ a: 'A' })
