@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import { Component, createElement, button, div, text } from './lib/React'
 import { render } from './lib/ReactDOM'
 
@@ -13,9 +12,9 @@ class A extends Component {
 
     return (
       div({ className: this.state.count % 2 ? 'blue' : 'red' },
-        text( 
+        text(
           { body: `count: ${this.state.count}` }),
-        button( 
+        button(
           { onClick: e => this.setState({ count: this.state.count + 1 }),
             className: this.state.count % 2 ? 'red' : 'blue'},
           text(
@@ -34,5 +33,4 @@ class B extends Component {
   }
 }
 
-render(div(null, createElement(A)), $('#root'))
-
+render(div(null, createElement(A)), document.getElementById('root'))
